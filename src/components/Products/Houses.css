@@ -1,0 +1,60 @@
+/* Houses.css */
+
+.houses-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .houses-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .house-card {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center; /* Center content */
+  }
+  
+  .house-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Styling individual fields with colors */
+  .house-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .house-card p {
+    margin: 5px 0;
+  }
+  
+  .house-card p:nth-of-type(1) {
+    color: #16a085; /* Location */
+  }
+  
+  .house-card p:nth-of-type(2) {
+    color: #e67e22; /* Cost */
+  }
+  
+  .house-card p:nth-of-type(3) {
+    color: #2980b9; /* Description */
+  }
+  
+  /* Styling the image */
+  .house-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  

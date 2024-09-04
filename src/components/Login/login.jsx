@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,8 +12,13 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/user/login', { email, password });
+      
       if (response.data.success) {
-        navigate.push('/products');
+        // Store the token in local storage (or session storage)
+        localStorage.setItem('token', response.data.token);
+
+        // Redirect to the products page
+        navigate('/products');
       } else {
         setError('Invalid email or password');
       }
