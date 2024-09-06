@@ -25,8 +25,7 @@ const CreateHouse = () => {
         cost: Number(cost),
         description,
         location,
-        images: images.filter(img => img.trim() !== ''),
-        landlordEmail: authData.email, // Assuming you want to associate the house with the landlord
+        images: images.filter(img => img.trim() !== '')
       };
 
       const response = await axios.post('/house/newHouse', houseData);
