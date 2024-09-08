@@ -1,9 +1,9 @@
 // src/components/LandlordHouses.jsx
 
 import { useState, useEffect, useContext } from 'react';
-import axios from '../axiosConfig';
+import axios from 'axios';
 import './LandlordHouses.css'; // Import your CSS
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../components/AuthContext';
 
 const LandlordHouses = () => {
   const [houses, setHouses] = useState([]);
@@ -13,9 +13,8 @@ const LandlordHouses = () => {
   useEffect(() => {
     const fetchHouses = async () => {
       try {
-        const response = await axios.get('/house/allhouses', {
-          params: { landlordEmail: authData.email }, // Assuming API accepts landlordEmail as query param
-        });
+        const response = await axios.get('http://localhost:3001/house/allhouses'
+        );
         setHouses(response.data.data);
       } catch (err) {
         setError(err.response?.data?.message || 'Error loading houses');

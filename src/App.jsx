@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Houses from './components/Products/product';
 import Registration from './components/Register/registration';
 import Login from './components/Login/login';
+ import LandLord from './components/LandlordHouses'
 
 import './App.css';
 
@@ -17,11 +18,16 @@ function App() {
         {/* Login route */}
         <Route path="/login" element={<Login />} />
 
-        {/* Product route, accessible after login */}
-        <Route path="/products" element={<Houses />} />
+        {/* Houses route, accessible after login */}
+        <Route path="/houses" element={<Houses />} />
 
         {/* Registration route */}
         <Route path="/register" element={<Registration />} />
+
+        {/*Landlord Page */}
+         <Route path="/landlord" element={<LandLord />} /> 
+
+        
       </Routes>
     </Router>
   );
