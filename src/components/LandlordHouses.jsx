@@ -13,7 +13,7 @@ const LandlordHouses = () => {
   useEffect(() => {
     const fetchHouses = async () => {
       try {
-        const response = await axios.get('/house/landlordHouses', {
+        const response = await axios.get('/house/allhouses', {
           params: { landlordEmail: authData.email }, // Assuming API accepts landlordEmail as query param
         });
         setHouses(response.data.data);

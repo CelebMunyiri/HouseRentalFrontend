@@ -34,7 +34,7 @@ const CreateHouse = () => {
         setSuccessMessage('House created successfully!');
         setError(null);
         // Optionally, redirect to landlord's houses page
-        navigate('/landlord-houses');
+        navigate('/house/allhouses');
       } else {
         setError(response.data.message || 'Error creating house');
         setSuccessMessage('');

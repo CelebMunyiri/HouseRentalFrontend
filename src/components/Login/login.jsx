@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate and Link
 import './Login.css'; // Import the CSS file
+import {decode} from 'jwt-decode';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,15 +15,28 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3001/user/login', { email, password });
-      if (response.data.success) {
-        setSuccess('Login successful!');
-        setError(null); // Clear any previous error messages
-        setTimeout(() => {
-          navigate('/products'); // Redirect after showing success message
-        }, 1500); // Delay to show success message before redirecting
+      const { success, token } = response.data;
+
+      if (success) {
+        // Store token in localStorage for future requests
+        localStorage.setItem('authToken', token);
+
+        // Decode the token to get the role
+        const decodedToken = decode(token);
+        const role = decodedToken.role;
+        console.log(role)
+
+        // Display success message
+        setSuccessMessage('Login successful! Redirecting...');
+
+        // Redirect based on the role
+        if (role === 'tenant') {
+          navigate('/houses/allHouses');
+        } else if (role === 'landlord') {
+          navigate('/house/newHouse');
+        }
       } else {
-        setError('Invalid email or password');
-        setSuccess(null); // Clear success message if there is an error
+        setError('Invalid credentials');
       }
     } catch (err) {
       setError('Error logging in');
