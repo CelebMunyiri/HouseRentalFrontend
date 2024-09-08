@@ -18,8 +18,9 @@ const Login = () => {
       if (response.data.success) {
         setSuccess('Login successful!');
         const decodedToken = jwtDecode(response.data.token)
+        localStorage.setItem('token',response.data.token)
         const role=decodedToken.role;
-        console.log(role);
+        
         setError(null); // Clear any previous error messages
         setTimeout(() => {
           if(role=='tenant'){

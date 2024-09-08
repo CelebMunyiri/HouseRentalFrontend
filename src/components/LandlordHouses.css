@@ -1,0 +1,185 @@
+/* General styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+  }
+  
+  /* Container for the houses section */
+  .landlord-houses-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Grid layout to display the house cards */
+  .landlord-houses-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  /* Each house card */
+  .house-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 280px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Card hover effect */
+  .house-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Image styling */
+  .house-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Info section inside the card */
+  .house-info {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  /* Headings inside the cards */
+  .house-info h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  
+  /* Description and other info styling */
+  .house-info p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 0.9rem;
+  }
+  
+  .house-info strong {
+    color: #333;
+  }
+  
+  /* Modal styling */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+  }
+  
+  /* Close button for modal */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    background-color: darkred;
+  }
+  
+  /* Image gallery styling */
+  .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .gallery-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  /* Headings and details in modal */
+  .modal-content h3 {
+    color: #333;
+  }
+  
+  .modal-content p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .modal-content strong {
+    color: #333;
+  }
+  
+  /* Button styling */
+  .create-house-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 20px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .create-house-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 768px) {
+    .house-card {
+      width: 100%;
+    }
+  
+    .house-info h3 {
+      font-size: 1.1rem;
+    }
+  
+    .house-info p {
+      font-size: 0.8rem;
+    }
+  
+    .modal-content {
+      width: 90%;
+    }
+  }
+  

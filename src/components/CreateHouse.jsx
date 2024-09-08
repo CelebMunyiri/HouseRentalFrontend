@@ -1,9 +1,9 @@
 // src/components/CreateHouse.jsx
 
 import { useState, useContext } from 'react';
-import axios from '../axiosConfig'; // Use the configured axios instance
+import axios from 'axios'; // Use the configured axios instance
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../components/AuthContext';
 import './CreateHouse.css'; // Import your CSS
 
 const CreateHouse = () => {
@@ -19,6 +19,14 @@ const CreateHouse = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const token = localStorage.getItem('token');
+
+    // Check if token exists
+    if (!token) {
+      setError('No token found. Please log in again.');
+      return;
+    }
     try {
       const houseData = {
         name,
@@ -28,13 +36,21 @@ const CreateHouse = () => {
         images: images.filter(img => img.trim() !== '')
       };
 
-      const response = await axios.post('/house/newHouse', houseData);
+      const response = await axios.post('http://localhost:3001/house/newHouse',houseData,
+      {
+        headers: {
+          token: `${token}`, // Include token in headers
+          'Content-Type': 'application/json',
+        },
+      }
+      );
+      
 
       if (response.data.success) {
         setSuccessMessage('House created successfully!');
         setError(null);
         // Optionally, redirect to landlord's houses page
-        navigate('/house/allhouses');
+        navigate('/landlord');
       } else {
         setError(response.data.message || 'Error creating house');
         setSuccessMessage('');

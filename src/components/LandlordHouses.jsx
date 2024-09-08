@@ -1,21 +1,20 @@
-// src/components/LandlordHouses.jsx
-
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import './LandlordHouses.css'; // Import your CSS
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import './LandlordHouses.css'; 
 import { AuthContext } from '../components/AuthContext';
 
 const LandlordHouses = () => {
   const [houses, setHouses] = useState([]);
   const [error, setError] = useState(null);
   const { authData } = useContext(AuthContext);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     const fetchHouses = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/house/allhouses'
-        );
-        setHouses(response.data.data);
+        const response = await axios.get('http://localhost:3001/house/allhouses');
+        setHouses(response.data.allHouses);
       } catch (err) {
         setError(err.response?.data?.message || 'Error loading houses');
       }
@@ -23,6 +22,10 @@ const LandlordHouses = () => {
 
     fetchHouses();
   }, [authData.email]);
+
+  const handleCreateHouse = () => {
+    navigate('/house/create'); // Redirect to create house page
+  };
 
   return (
     <div className="landlord-houses-container">
@@ -37,11 +40,11 @@ const LandlordHouses = () => {
               <p><strong>Location:</strong> {house.location}</p>
               <p><strong>Cost:</strong> ${house.cost}</p>
               <p><strong>Description:</strong> {house.description}</p>
-              {/* Add buttons for editing or deleting if needed */}
             </div>
           </div>
         ))}
       </div>
+      <button onClick={handleCreateHouse} className="create-house-button">Create House</button>
     </div>
   );
 };

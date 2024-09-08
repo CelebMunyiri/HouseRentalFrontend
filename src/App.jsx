@@ -4,32 +4,26 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Houses from './components/Products/product';
 import Registration from './components/Register/registration';
 import Login from './components/Login/login';
- import LandLord from './components/LandlordHouses'
+import LandLord from './components/LandlordHouses';
+import CreateHouse from './components/CreateHouse';
+import { AuthProvider } from './components/AuthContext'; // Correct path for AuthContext
 
 import './App.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Default route that redirects to the login page */}
-        <Route path="/" element={<Navigate to="/login" />} />
-
-        {/* Login route */}
-        <Route path="/login" element={<Login />} />
-
-        {/* Houses route, accessible after login */}
-        <Route path="/houses" element={<Houses />} />
-
-        {/* Registration route */}
-        <Route path="/register" element={<Registration />} />
-
-        {/*Landlord Page */}
-         <Route path="/landlord" element={<LandLord />} /> 
-
-        
-      </Routes>
-    </Router>
+    <AuthProvider> {/* Wrap the entire app with AuthProvider */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/houses" element={<Houses />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/landlord" element={<LandLord />} />
+          <Route path="/house/create" element={<CreateHouse />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
