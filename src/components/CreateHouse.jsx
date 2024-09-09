@@ -29,10 +29,11 @@ const CreateHouse = () => {
       setError('No token found. Please log in again.');
       return;
     }
-    try {
-      const decodedToken=jwtDecode(localStorage.getItem(token))
-      const housePoster=decodedToken.role;
+    const decodedToken=jwtDecode(token)
+      const housePoster=decodedToken._id;
       console.log(housePoster);
+    try {
+      
       const houseData = {
 
         name,
