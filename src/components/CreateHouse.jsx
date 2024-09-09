@@ -5,6 +5,7 @@ import axios from 'axios'; // Use the configured axios instance
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../components/AuthContext';
 import './CreateHouse.css'; // Import your CSS
+import { jwtDecode } from 'jwt-decode';
 
 const CreateHouse = () => {
   const [name, setName] = useState('');
@@ -15,6 +16,7 @@ const CreateHouse = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+
   const { authData } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
@@ -28,8 +30,13 @@ const CreateHouse = () => {
       return;
     }
     try {
+      const decodedToken=jwtDecode(localStorage.getItem(token))
+      const housePoster=decodedToken.role;
+      console.log(housePoster);
       const houseData = {
+
         name,
+        poster:housePoster,
         cost: Number(cost),
         description,
         location,
@@ -46,7 +53,7 @@ const CreateHouse = () => {
       );
       
 
-      if (response.data.success) {
+      if (response.data.message=="House Added succesfully") {
         setSuccessMessage('House created successfully!');
         setError(null);
         // Optionally, redirect to landlord's houses page

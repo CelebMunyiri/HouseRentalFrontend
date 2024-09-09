@@ -38,7 +38,7 @@ const LandlordHouses = () => {
             <div className="house-info">
               <h3>{house.name}</h3>
               <p><strong>Location:</strong> {house.location}</p>
-              <p><strong>Cost:</strong> ${house.cost}</p>
+              <p><strong>Cost:</strong> Ksh {house.cost}</p>
               <p><strong>Description:</strong> {house.description}</p>
             </div>
           </div>
