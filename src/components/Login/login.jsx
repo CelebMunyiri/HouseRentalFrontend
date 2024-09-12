@@ -70,9 +70,9 @@ const Login = () => {
         // Send the subscription to the backend
         const tokenToDecode = localStorage.getItem('token')
         const theId = jwtDecode(tokenToDecode)._id
-        console.log(theId)
+        
         await saveSubscription(theId, subscription);
-        console.log('Subscription saved on backend.');
+      
       } catch (error) {
         console.error('Error during service worker registration or subscription', error);
       }
@@ -94,7 +94,7 @@ const Login = () => {
       if (!response.ok) {
         throw new Error('Failed to save subscription');
       }
-      console.log(response)
+      
     } catch (error) {
       console.error('Failed to send subscription to backend', error);
     }
