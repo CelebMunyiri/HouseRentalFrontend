@@ -1,38 +1,41 @@
-import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { useQuery } from 'react-query';
+import axios from 'axios';
 import './LandlordHouses.css'; 
 import { AuthContext } from '../components/AuthContext';
 
+const fetchHouses = async () => {
+  const response = await axios.get('http://localhost:3001/house/allhouses');
+  return response.data.allHouses;
+};
+
 const LandlordHouses = () => {
-  const [houses, setHouses] = useState([]);
-  const [error, setError] = useState(null);
   const { authData } = useContext(AuthContext);
   const navigate = useNavigate(); // Initialize useNavigate
 
-  useEffect(() => {
-    const fetchHouses = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/house/allhouses');
-        setHouses(response.data.allHouses);
-      } catch (err) {
-        setError(err.response?.data?.message || 'Error loading houses');
-      }
-    };
-
-    fetchHouses();
-  }, [authData.email]);
+  // Using React Query to fetch houses
+  const { data: houses, error, isLoading } = useQuery(['houses', authData.email], fetchHouses, {
+    enabled: !!authData.email, // Only fetch if email exists
+  });
 
   const handleCreateHouse = () => {
     navigate('/house/create'); // Redirect to create house page
   };
 
+  if (isLoading) {
+    return <p>Loading houses...</p>;
+  }
+
+  if (error) {
+    return <p className="error-message">{error.message || 'Error loading houses'}</p>;
+  }
+
   return (
     <div className="landlord-houses-container">
       <h2>Your Houses</h2>
-      {error && <p className="error-message">{error}</p>}
       <div className="landlord-houses-grid">
-        {houses.map(house => (
+        {houses?.map(house => (
           <div key={house._id} className="house-card">
             <img src={house.images[0]} alt={house.name} className="house-image" />
             <div className="house-info">

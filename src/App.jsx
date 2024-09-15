@@ -1,29 +1,39 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-
-import Houses from './components/Products/product';
-import Registration from './components/Register/registration';
-import Login from './components/Login/login';
-import LandLord from './components/LandlordHouses';
-import CreateHouse from './components/CreateHouse';
-import { AuthProvider } from './components/AuthContext'; // Correct path for AuthContext
-
+import { AuthProvider } from './components/AuthContext';
 import './App.css';
+
+// Create a QueryClient instance for React Query
+const queryClient = new QueryClient();
+
+// Lazy load components
+const Houses = lazy(() => import('./components/Products/house'));
+const Registration = lazy(() => import('./components/Register/registration'));
+const Login = lazy(() => import('./components/Login/login'));
+const LandLord = lazy(() => import('./components/LandlordHouses'));
+const CreateHouse = lazy(() => import('./components/CreateHouse'));
 
 function App() {
   return (
     <AuthProvider> {/* Wrap the entire app with AuthProvider */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/houses" element={<Houses />} />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/landlord" element={<LandLord />} />
-          <Route path="/house/create" element={<CreateHouse />} />
-        </Routes>
-      </Router>
+      {/* Wrap with QueryClientProvider for React Query */}
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          {/* Suspense for lazy loading fallback */}
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/houses" element={<Houses />} />
+              <Route path="/register" element={<Registration />} />
+              <Route path="/landlord" element={<LandLord />} />
+              <Route path="/house/create" element={<CreateHouse />} />
+            </Routes>
+          </Suspense>
+        </Router>
+      </QueryClientProvider>
     </AuthProvider>
   );
 }

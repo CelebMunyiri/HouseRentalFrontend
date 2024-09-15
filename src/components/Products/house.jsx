@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 import './Houses.css';
 
+// Function to fetch houses data
+const fetchHouses = async () => {
+  const response = await axios.get('http://localhost:3001/house/allhouses');
+  return response.data.allHouses;
+};
+
 const Houses = () => {
-  const [houses, setHouses] = useState([]);
-  const [error, setError] = useState(null);
   const [selectedHouse, setSelectedHouse] = useState(null); // State to track selected house
 
-
-//useQUery
-
-  useEffect(() => {
-    axios.get('http://localhost:3001/house/allhouses')
-      .then(response => {
-        setHouses(response.data.allHouses);
-      })
-      .catch(error => setError(error));
-  }, [houses]);
+  // Use React Query's useQuery to fetch houses
+  const { data: houses = [], error, isLoading } = useQuery('houses', fetchHouses);
 
   const openModal = (house) => {
     setSelectedHouse(house); // Set selected house when a card is clicked
@@ -26,10 +23,17 @@ const Houses = () => {
     setSelectedHouse(null); // Close modal by resetting selected house
   };
 
+  if (isLoading) {
+    return <p>Loading...</p>; // Display loading state
+  }
+
+  if (error) {
+    return <p>Error loading houses: {error.message}</p>; // Display error state
+  }
+
   return (
     <div className="houses-container">
       <h2>Houses</h2>
-      {error && <p>Error loading houses: {error.message}</p>}
       <div className="houses-grid">
         {houses.map(house => (
           <div key={house._id} className="house-card" onClick={() => openModal(house)}>
