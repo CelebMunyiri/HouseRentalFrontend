@@ -2,7 +2,7 @@ self.addEventListener('push', (event) => {
     const data = event.data.json();
     const options = {
       body: data.body,
-      icon: '/icon.png', // optional icon
+      icon: 'https://svgcuts.com/images/maple-manor-house.jpg', // optional icon
       badge: '/badge.png' // optional badge
     };
   
@@ -13,7 +13,7 @@ self.addEventListener('push', (event) => {
     event.notification.close();
   
     event.waitUntil(
-      clients.openWindow('http:/localhost:5173') // URL to navigate when notification is clicked
+      clients.openWindow('http:/localhost:5173/houses') // URL to navigate when notification is clicked
     );
   });
   

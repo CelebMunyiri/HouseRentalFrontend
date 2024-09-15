@@ -7,13 +7,16 @@ const Houses = () => {
   const [error, setError] = useState(null);
   const [selectedHouse, setSelectedHouse] = useState(null); // State to track selected house
 
+
+//useQUery
+
   useEffect(() => {
     axios.get('http://localhost:3001/house/allhouses')
       .then(response => {
         setHouses(response.data.allHouses);
       })
       .catch(error => setError(error));
-  }, []);
+  }, [houses]);
 
   const openModal = (house) => {
     setSelectedHouse(house); // Set selected house when a card is clicked
