@@ -14,6 +14,7 @@ const Registration = lazy(() => import('./components/Register/registration'));
 const Login = lazy(() => import('./components/Login/login'));
 const LandLord = lazy(() => import('./components/LandlordHouses'));
 const CreateHouse = lazy(() => import('./components/CreateHouse'));
+const Chat = lazy(() => import('./components/Chat/Chat'));
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/register" element={<Registration />} />
               <Route path="/landlord" element={<LandLord />} />
               <Route path="/house/create" element={<CreateHouse />} />
+              <Route path="/chat/:houseId/:posterId" element={<Chat />} /> {/* Chat Route */}
             </Routes>
           </Suspense>
         </Router>
