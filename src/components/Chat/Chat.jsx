@@ -18,7 +18,7 @@ const Chat = () => {
 
   useEffect(() => {
     // Listen for connection event to confirm socket connection
-    socket.on('connect', () => {
+    socket.on('connection', () => {
       setConnected(true);
       console.log('Connected to the server with socket ID:', socket.id);
     });
